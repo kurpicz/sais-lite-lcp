@@ -678,74 +678,68 @@ static sais_index_type sais_main(const void *T, sais_index_type *SA,
     // DELTA: "distance (in T) to next S*" (in PHI-order)
     if (level0) {
       if (m < n/3) { // hence we can store PHI and DELTA interleaved
-	PHI = LCP+m;       // use space in LCP-array for PHI and DELTA
-	RA[m] = n;         // stopper
-	j = SA[0];         // j stores SA[i-1] in the following loop
-	PHI[j<<1] = n-1;   // set PHI[SA[0]] to $ (causes mismatch in char. comp.)
-	PHI[(j<<1)+1] = 0; // set DELTA
-	for (i = 1; i < m; ++i) {
-	  q = SA[i];                // text position
-	  p = q<<1;                 // for interleaving
-	  PHI[p]=RA[j];             // set PHI-array
-	  PHI[p+1]=RA[j+1]-RA[j];   // set DELTA
-	  j = q;                    // store for next loop iteration
-	}
-
-	PLCP = PHI; // overwrite DELTA in following loop
-	p = 0; // guaranteed LCP-value
-	j = 0; // position in PLCP and RA
-	for (i = 0; i < n; ++i) {
-	  if (i == RA[j]) {
-	    if (p < 0) p = 0;
-	    sais_index_type twoj = j << 1;
-	    while (chr(i+p) == chr(PHI[twoj]+p)) ++p;
-	    t = PHI[twoj+1];      // accesses DELTA-value
-	    q = RA[j+1]-RA[j];    // length difference
-	    PLCP[twoj] = p;       // overwrite PHI with PLCP
-	    ++j;
-	    p -= (t > q) ? t : q; // decrease p by larger of t and q
-	  }
-	}
-
-	// translate PLCP-values to SA-order:
-	for (j = 0; j < m; ++j) LCP[j] = PLCP[SA[j]<<1];
+	      PHI = LCP+m;       // use space in LCP-array for PHI and DELTA
+	      RA[m] = n;         // stopper
+	      j = SA[0];         // j stores SA[i-1] in the following loop
+      	PHI[j<<1] = n-1;   // set PHI[SA[0]] to $ (causes mismatch in char. comp.)
+      	PHI[(j<<1)+1] = 0; // set DELTA
+      	for (i = 1; i < m; ++i) {
+      	  q = SA[i];                // text position
+      	  p = q<<1;                 // for interleaving
+      	  PHI[p]=RA[j];             // set PHI-array
+      	  PHI[p+1]=RA[j+1]-RA[j];   // set DELTA
+      	  j = q;                    // store for next loop iteration
+      	}
+      	PLCP = PHI; // overwrite DELTA in following loop
+      	p = 0; // guaranteed LCP-value
+      	j = 0; // position in PLCP and RA
+      	for (i = 0; i < n; ++i) {
+      	  if (i == RA[j]) {
+      	    if (p < 0) p = 0;
+      	    sais_index_type twoj = j << 1;
+      	    while (chr(i+p) == chr(PHI[twoj]+p)) ++p;
+      	    t = PHI[twoj+1];      // accesses DELTA-value
+      	    q = RA[j+1]-RA[j];    // length difference
+      	    PLCP[twoj] = p;       // overwrite PHI with PLCP
+      	    ++j;
+      	    p -= (t > q) ? t : q; // decrease p by larger of t and q
+      	  }
+      	}
+      	// translate PLCP-values to SA-order:
+      	for (j = 0; j < m; ++j) LCP[j] = PLCP[SA[j]<<1];
       }
       else { // non-interleaved
-	PHI = LCP;     // use space in LCP-array for PHI
-	DELTA = LCP+m; // because we compute only m < n/2 values, this is valid
-	RA[m] = n;     // stopper
-	j = SA[0];     // j stores SA[i-1] in the following loop
-	PHI[j] = n-1;  // set PHI[SA[0]] to $ (causes mismatch in char. comp.)
-	DELTA[j] = 0;
-	for (i = 1; i < m; ++i) {
-	  q = SA[i];              // text position
-	  PHI[q]=RA[j];           // set PHI-array
-	  DELTA[q]=RA[j+1]-RA[j]; // set DELTA
-	  j = q;                  // store for next loop iteration
-	}
-
-	PLCP = DELTA; // overwrite DELTA in following loop
-	p = 0; // guaranteed LCP-value
-	j = 0; // position in PLCP and RA
-	for (i = 0; i < n; ++i) {
-	  if (i == RA[j]) {
-	    if (p < 0) p = 0;
-	    while (chr(i+p) == chr(PHI[j]+p)) ++p;
-	    t = PLCP[j];          // accesses DELTA-value
-	    q = RA[j+1]-RA[j];    // length difference
-	    PLCP[j++] = p;
-	    p -= (t > q) ? t : q; // decrease p by larger of t and q
-	  }
-	}
-
-	// translate PLCP-values to SA-order:
-	for (j = 0; j < m; ++j) LCP[j] = PLCP[SA[j]];
+      	PHI = LCP;     // use space in LCP-array for PHI
+      	DELTA = LCP+m; // because we compute only m < n/2 values, this is valid
+      	RA[m] = n;     // stopper
+      	j = SA[0];     // j stores SA[i-1] in the following loop
+      	PHI[j] = n-1;  // set PHI[SA[0]] to $ (causes mismatch in char. comp.)
+      	DELTA[j] = 0;
+      	for (i = 1; i < m; ++i) {
+      	  q = SA[i];              // text position
+      	  PHI[q]=RA[j];           // set PHI-array
+      	  DELTA[q]=RA[j+1]-RA[j]; // set DELTA
+      	  j = q;                  // store for next loop iteration
+      	}
+      	PLCP = DELTA; // overwrite DELTA in following loop
+      	p = 0; // guaranteed LCP-value
+      	j = 0; // position in PLCP and RA
+      	for (i = 0; i < n; ++i) {
+      	  if (i == RA[j]) {
+      	    if (p < 0) p = 0;
+      	    while (chr(i+p) == chr(PHI[j]+p)) ++p;
+      	    t = PLCP[j];          // accesses DELTA-value
+      	    q = RA[j+1]-RA[j];    // length difference
+      	    PLCP[j++] = p;
+      	    p -= (t > q) ? t : q; // decrease p by larger of t and q
+      	  }
+      	}
+      	// translate PLCP-values to SA-order:
+      	for (j = 0; j < m; ++j) LCP[j] = PLCP[SA[j]];
       }
     }
-
     // translate indices in RA to indices in T:
     for(i = 0; i < m; ++i) SA[i] = RA[SA[i]];
-
     if(flags & 4) {
       if((C = B = SAIS_MYMALLOC(k, int)) == NULL) { return -2; }
     }
@@ -778,39 +772,50 @@ static sais_index_type sais_main(const void *T, sais_index_type *SA,
     if (level0) {
       newfs = LCP[m-1]; // newfs stores LCP[i] in the following loop
       do {
-	q = B[c0 = c1];
-	while(q < j) {
-	  SA[--j] = 0; LCP[j] = -2; // set remaining entries in old bucket to 0/-2
-	}
-	
-	do { // step through bucket c0 and write S*-suffixes to SA:
-	  SA[--j] = p; LCP[j] = newfs;
-	  if(--i < 0) break;
-	  newfs = LCP[i]; p = SA[i];
-	} while((c1 = chr(p)) == c0);
-	assert(LCP[j]==0); // first S*-suffix in bucket must have LCP-value 0
-	LCP[j] = -1;       // mark first S*-suffix in every bucket
+	      q = B[c0 = c1];
+	      while(q < j) {
+	        SA[--j] = 0; LCP[j] = -2; // set remaining entries in old bucket to 0/-2
+	      }
+	      do { // step through bucket c0 and write S*-suffixes to SA:
+          SA[--j] = p; LCP[j] = newfs;
+          if(--i < 0) break;
+          newfs = LCP[i]; p = SA[i];
+      	} while((c1 = chr(p)) == c0);
+    	  assert(LCP[j]==0); // first S*-suffix in bucket must have LCP-value 0
+    	  LCP[j] = -1;       // mark first S*-suffix in every bucket
       } while(0 <= i);
       while(0 < j) {
-	SA[--j] = 0; LCP[j] = -2; // set remaining entries in smallest buckets to 0/-2
+	      SA[--j] = 0; LCP[j] = -2; // set remaining entries in smallest buckets to 0/-2
       }
     }
     else {
       do {
-	q = B[c0 = c1];
-	while(q < j) SA[--j] = 0; // set remaining entries in old bucket to 0
-	do { // step through bucket c0
-	  SA[--j] = p;
-	  if(--i < 0) break;
-	  p = SA[i];
-	} while((c1 = chr(p)) == c0);
+	      q = B[c0 = c1];
+      	while(q < j) SA[--j] = 0; // set remaining entries in old bucket to 0
+      	do { // step through bucket c0
+      	  SA[--j] = p;
+      	  if(--i < 0) break;
+      	  p = SA[i];
+      	} while((c1 = chr(p)) == c0);
       } while(0 <= i);
       while(0 < j) SA[--j] = 0; // set remaining entries in 1st bucket to 0
     }
   }
 
   if(isbwt == 0) {
-    if (level0) induceSAandLCP(T, SA, LCP, C, B, n, k, cs);
+    if (level0 && m > 1) induceSAandLCP(T, SA, LCP, C, B, n, k, cs);
+    else if (level0) {
+      induceSA(T, SA, C, B, n, k, cs);
+      LCP[0] = 0;
+      //Compute the LCP naively. This is only done if the instance is very simple
+      //and most likely constructed. Still this could be done by a more efficient
+      //algorithm (phi-algorithm).
+      for(i = 0; i < n; ++i){
+        p = 0;
+        while (chr(SA[i - 1] + p) == chr(SA[i] + p)) { ++p; }
+        LCP[i] = p;
+      }
+    }
     else induceSA(T, SA, C, B, n, k, cs);
   }
   else { pidx = computeBWT(T, SA, C, B, n, k, cs); }

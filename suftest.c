@@ -199,22 +199,21 @@ if (n < 256) printf("%s\n", T);
   fprintf(stderr, "induced: %.4f sec\n", (double)(finish - start) / (double)CLOCKS_PER_SEC);
 
   /* // check LCP: */
-  /* int i,l; */
-  /* for (i = 1; i < n; ++i) { */
-  /*   l = 0; */
-  /*   while (T[SA[i]+l]==T[SA[i-1]+l]) ++l; */
-  /*   if (l != LCP[i]) { */
-  /*     printf("Error at position %i\n", i); */
-  /*     printf("%i vs. %i\n", l, LCP[i]); */
-  /*     for (j = 0; j < 10; j++) printf("%c", T[SA[i]+j]); printf("\n"); */
-  /*     for (j = 0; j < 10; j++) printf("%c", T[SA[i-1]+j]); printf("\n"); */
-  /*     exit(-1); */
-  /*   } */
-  /* } */
+   int i,l;
+   for (i = 1; i < n; ++i) {
+     l = 0;
+     while (T[SA[i]+l]==T[SA[i-1]+l]) ++l;
+     if (l != LCP[i]) {
+       printf("Error at position %i\n", i);
+       printf("%i vs. %i\n", l, LCP[i]);
+       for (j = 0; j < 10; j++) printf("%c", T[SA[i]+j]); printf("\n");
+       for (j = 0; j < 10; j++) printf("%c", T[SA[i-1]+j]); printf("\n");
+       exit(-1);
+     }
+   }
 
   // naive LCP:
   start = clock();
-  int i,l;
   for (i = 1; i < n; ++i) {
     l = 0;
     while (T[SA[i]+l]==T[SA[i-1]+l]) ++l;

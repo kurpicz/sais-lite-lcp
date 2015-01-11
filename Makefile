@@ -1,7 +1,7 @@
 # Makefile for suftest and test
 
 # options
-CC						= llvm-gcc
+CC						= gcc
 #CXX						= g++
 #OUTPUT_OPTION	= -o $@
 CFLAGS                          = -ffast-math -O9 -funroll-loops -DNDEBUG
