@@ -1,5 +1,5 @@
 # sais-lite-lcp
-This is an ad-hoc-implementation of the code described in ["Inducing the LCP-Array"](http://arxiv.org/abs/1101.3448) by [Johannes Fischer](mailto:johannes.fischer@cs.tu-dortmund.de). It is based on Yuta Mori's [sais-lite 2.4.1](http://sites.google.com/site/yuta256), which is an implementation of the  following paper:
+This is an ad-hoc-implementation of the code described in ["Inducing the LCP-Array"](http://arxiv.org/abs/1101.3448) by [Johannes Fischer](http://ls11-www.cs.tu-dortmund.de/staff/fischer). It is based on Yuta Mori's [sais-lite 2.4.1](http://sites.google.com/site/yuta256), which is an implementation of the  following paper:
 
 Nong, G., Zhang, S., & Chan, W. H. (2011). Two efficient algorithms for linear time suffix array construction. Computers, *IEEE Transactions on, 60(10)*, 1471-1484.
 
