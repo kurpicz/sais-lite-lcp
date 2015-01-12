@@ -11,6 +11,10 @@ To build use the makefile and to test the code use the suftest as described belo
     ./suftest <textfile>
     
 Please notice that the *textfile* is required to be ended by a special sentinel value. Thus the last character of the text is automatically considered to be an unique character which is also the lexicographically smallest character.
+#Contributors
++ [Johannes Fischer](http://ls11-www.cs.tu-dortmund.de/staff/fischer)
++ [Florian Kurpicz](http://ls11-www.cs.tu-dortmund.de/staff/kurpicz)
+
 #Changelog
 ###Version 0.0.1
 + Initial Release
