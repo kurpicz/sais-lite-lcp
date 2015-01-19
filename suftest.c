@@ -179,11 +179,11 @@ main(int argc, const char *argv[]) {
   }
   fclose(fp);
 
-if (n < 256) printf("%s\n", T);
-T[n-1]=0;
+  //if (n < 256) printf("%s\n", T);
+
  /* int ii; */
  /* for (ii=0;ii<n;++ii) printf("%i,", (int)T[ii]); printf("\n");  */
-if (n < 256) printf("%s\n", T);
+ //if (n < 256) printf("%s\n", T);
 
  int j;
  /* for (j = 0; j < n; j++) printf("%i,", (int) T[j]); printf("\n"); */
