@@ -752,7 +752,6 @@ static sais_index_type sais_main(const void *T, sais_index_type *SA,
   } // endif (name < m)
   else if (level0) { // this should only occur for small or pathetic inputs
     // all names unique => computing LCP for *S naively takes linear time
-    printf("*** computing LCP naively...");
     j = SA[0]; // j = SA[i-1] in the following loop
     for (i = 1; i < m; ++i) {
       p = 0;
@@ -760,7 +759,6 @@ static sais_index_type sais_main(const void *T, sais_index_type *SA,
       LCP[i] = p;
       j = SA[i];
     }
-    printf("done.\n");
   }
 
   /* stage 3: induce the result for the original problem */
