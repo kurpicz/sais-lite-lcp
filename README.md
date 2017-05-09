@@ -15,6 +15,6 @@ Please notice that the *textfile* is required to be ended by a special sentinel 
 + [Johannes Fischer](http://ls11-www.cs.tu-dortmund.de/staff/fischer) (Author)
 + [Florian Kurpicz](http://ls11-www.cs.tu-dortmund.de/staff/kurpicz)
 
-#Changelog
-###Version 0.0.1
+# Changelog
+### Version 0.0.1
 + Initial Release
