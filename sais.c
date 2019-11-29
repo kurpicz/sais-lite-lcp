@@ -47,7 +47,7 @@
 #define chr(_a) (cs == sizeof(sais_index_type) ? ((sais_index_type *)T)[(_a)] : ((unsigned char *)T)[(_a)])
 
 /* qsort int comparison function */ 
-int int_cmp(const void *a, const void *b) 
+int sais_int_cmp(const void *a, const void *b) 
 { 
   const int *ia = (const int *)a; // casting pointer types 
   const int *ib = (const int *)b;
@@ -407,7 +407,7 @@ static void induceSAandLCP(const void *T, sais_index_type *SA,
       sais_index_type *LastOccCopy; // Copy of LastOcc
       if ((LastOccCopy = SAIS_MYMALLOC(sigma, sais_index_type)) == NULL) { exit(-1); }
       memcpy(LastOccCopy, LastOcc, sigma*sizeof(sais_index_type));
-      qsort(LastOccCopy, sigma, sizeof(sais_index_type), int_cmp);
+      qsort(LastOccCopy, sigma, sizeof(sais_index_type), sais_int_cmp);
 
       end = 1;
       for (j = 0, l=2; j < sigma; ++j) {
@@ -475,7 +475,7 @@ static void induceSAandLCP(const void *T, sais_index_type *SA,
       sais_index_type *LastOccCopy; // Copy of LastOcc
       if ((LastOccCopy = SAIS_MYMALLOC(sigma, sais_index_type)) == NULL) { exit(-1); }
       memcpy(LastOccCopy, LastOcc, sigma*sizeof(sais_index_type));
-      qsort(LastOccCopy, sigma, sizeof(sais_index_type), int_cmp);
+      qsort(LastOccCopy, sigma, sizeof(sais_index_type), sais_int_cmp);
 
       end = 1;
       for (j = sigma-1, l=2; j >= 0; --j) {
